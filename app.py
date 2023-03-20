@@ -63,5 +63,5 @@ for i, piece in enumerate(pieces):
         rect.set('onclick', f"handle_click('{square}')")
         rect.set('cursor', 'pointer')
 
-html = f"<div style='width: 400px; height: 400px;'>{ET.tostring(root, encoding='unicode')}</div>"
+html = f"<div style='width: 400px; height: 400px;'>{svg}</div>"
 st.markdown(html, unsafe_allow_html=True)
