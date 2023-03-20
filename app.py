@@ -56,8 +56,9 @@ for i, piece in enumerate(pieces):
     symbol = get_piece(piece)
     if symbol:
         rect = root.find(f".//*[@id='{square}']")
-        rect.set('onclick', f"handle_click('{square}')")
-        rect.set('cursor', 'pointer')
+        if rect is not None:
+            rect.set('onclick', f"handle_click('{square}')")
+            rect.set('cursor', 'pointer')
 
 svg = ET.tostring(root, encoding='unicode')
 
