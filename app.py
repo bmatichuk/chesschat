@@ -60,6 +60,7 @@ for i, piece in enumerate(pieces):
     rects = root.findall(f".//*[@id='{square}']")
     if rects:
         rect = rects[0]
+        st.write(rect)
         rect.set('onclick', f"handle_click('{square}')")
         rect.set('cursor', 'pointer')
 
