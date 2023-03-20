@@ -2,6 +2,15 @@ import streamlit as st
 import chess
 import chess.svg
 from IPython.display import SVG, display
+from streamlit.components.v1 import html
+
+# Define your javascript
+my_js = """
+alert("Hola mundo");
+"""
+
+# Wrapt the javascript as html code
+my_html = f"<script>{my_js}</script>"
 
 @st.cache(allow_output_mutation=True)
 def get_board():
@@ -57,6 +66,7 @@ for i, piece in enumerate(pieces):
         svg = svg.replace(f'id="{square}"', f'id="{square}" onclick="handle_click(\'{square}\')"')
 
 def handle_click(square):
+    html(my_html)
     st.write(f"Selected square: {square}")
     
 html = f"<div style='width: 400px; height: 400px;'>{svg}</div>"
