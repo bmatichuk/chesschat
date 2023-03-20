@@ -1,6 +1,6 @@
 import streamlit as st
 import chess
-import streamlit_chess
+import stchess
 
 @st.cache(allow_output_mutation=True)
 def get_board():
@@ -21,7 +21,7 @@ if move:
         st.success("Moved successfully!")
 
 last_move = board.peek() if board.move_stack else None
-selected_move = streamlit_chess.chessboard(board.fen(), lastMove=last_move)
+selected_move = stchess.chessboard(board.fen(), last_move=last_move)
 
 if selected_move is not None:
     try:
