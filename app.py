@@ -50,6 +50,7 @@ def handle_click(square):
 svg = chess.svg.board(board=board)
 
 root = ET.fromstring(svg)
+st.write(root)
 pieces = list(board.fen().split()[0])
 
 for i, piece in enumerate(pieces):
