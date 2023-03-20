@@ -55,6 +55,7 @@ def get_square(x, y):
 
 svg = chess.svg.board(board=board)
 
+root = ET.fromstring(svg)
 pieces = list(board.fen().split()[0])
 
 for i, piece in enumerate(pieces):
@@ -62,17 +63,16 @@ for i, piece in enumerate(pieces):
     y = i // 8
     square = get_square(x, y)
     symbol = get_piece(piece)
-    # stringval = 'console.log("' + str(x) + ',' + str(y) + '");'
-    # st.write(stringval)
-    # html(f"<script>{stringval}</script>")
     if symbol:
-        st.write(square)
-        svg = svg.replace(f'id="{square}"', f'id="{square}" onclick="handle_click(\'{square}\')"')
+        rect = root.find(f".//*[@id='{square}']")
+        rect.set('onclick', f"handle_click('{square}')")
+        rect.set('cursor', 'pointer')
+
+svg = ET.tostring(root, encoding='unicode')
 
 def handle_click(square):
     st.write(f"Selected square: {square}")
     
-htmlt = f"<div style='width: 400px; height: 400px;'>{svg}</div>"
-st.markdown(htmlt, unsafe_allow_html=True)
-
+html = f"<div style='width: 400px; height: 400px;'>{svg}</div>"
+st.markdown(html, unsafe_allow_html=True)
 
