@@ -57,8 +57,9 @@ for i, piece in enumerate(pieces):
     y = i // 8
     square = get_square(x, y)
     symbol = get_piece(piece)
-    if symbol:
-        rect = root.find(f".//*[@id='{square}']")
+    rects = root.findall(f".//*[@id='{square}']")
+    if rects:
+        rect = rects[0]
         rect.set('onclick', f"handle_click('{square}')")
         rect.set('cursor', 'pointer')
 
