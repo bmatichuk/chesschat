@@ -1,7 +1,7 @@
 import streamlit as st
 import chess
 import chess.svg
-import svgwrite
+import xml.etree.ElementTree as ET
 
 @st.cache(allow_output_mutation=True)
 def get_board():
@@ -49,9 +49,10 @@ def handle_click(square):
 
 svg = chess.svg.board(board=board)
 
-root = svgwrite.container.SVG()
-root.parse(svg)
+# Add namespace declaration to the SVG
+svg = svg.replace("<svg ", '<svg xmlns="http://www.w3.org/2000/svg" ')
 
+root = ET.fromstring(svg)
 pieces = list(board.fen().split()[0])
 
 for i, piece in enumerate(pieces):
@@ -60,11 +61,11 @@ for i, piece in enumerate(pieces):
     square = get_square(x, y)
     symbol = get_piece(piece)
     if symbol:
-        rect = root.getElementById(square)
-        rect.set_desc('onclick', f"handle_click('{square}')")
-        rect.set_desc('style', 'cursor: pointer;')
+        # Use the full namespace in the find() method
+        rect = root.find(f".//{{{root.nsmap[None]}}}rect[@id='{square}']")
+        rect.set('onclick', f"handle_click('{square}')")
+        rect.set('style', 'cursor: pointer;')
 
-svg = root.tostring()
-
+svg = ET.tostring(root, encoding='unicode')
 html = f"<div style='width: 400px; height: 400px;'>{svg}</div>"
 st.markdown(html, unsafe_allow_html=True)
