@@ -60,7 +60,7 @@ for i, piece in enumerate(pieces):
             rect.set('onclick', f"handle_click('{square}')")
             rect.set('cursor', 'pointer')
 
-svg = ET.tostring(root, encoding='unicode')
+#svg = ET.tostring(root, encoding='unicode')
 
 def handle_click(square):
     st.write(f"Selected square: {square}")
