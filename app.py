@@ -2,6 +2,7 @@ import streamlit as st
 import chess
 import chess.svg
 import xml.etree.ElementTree as ET
+import re
 
 @st.cache(allow_output_mutation=True)
 def get_board():
@@ -44,28 +45,14 @@ def get_square(x, y):
     rank = chess.RANK_NAMES[7 - y]
     return file + rank
 
-def handle_click(square):
-    st.write(f"Selected square: {square}")
+square = st.text_input("Enter square to select (e.g. e2):")
+if st.button("Select square"):
+    if chess.SQUARE_NAMES.count(square) > 0:
+        st.write(f"Selected square: {square}")
+    else:
+        st.error("Invalid square!")
 
 svg = chess.svg.board(board=board)
 
-# Add namespace declaration to the SVG
-svg = svg.replace("<svg ", '<svg xmlns="http://www.w3.org/2000/svg" ')
-
-root = ET.fromstring(svg)
-pieces = list(board.fen().split()[0])
-
-for i, piece in enumerate(pieces):
-    x = i % 8
-    y = i // 8
-    square = get_square(x, y)
-    symbol = get_piece(piece)
-    if symbol:
-        # Use the full namespace in the find() method
-        rect = root.find(f".//{{{root.nsmap[None]}}}rect[@id='{square}']")
-        rect.set('onclick', f"handle_click('{square}')")
-        rect.set('style', 'cursor: pointer;')
-
-svg = ET.tostring(root, encoding='unicode')
 html = f"<div style='width: 400px; height: 400px;'>{svg}</div>"
 st.markdown(html, unsafe_allow_html=True)
