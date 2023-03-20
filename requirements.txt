@@ -2,4 +2,4 @@ pandas
 streamlit
 chess
 IPython
-svgwrite
+streamlit_chess
