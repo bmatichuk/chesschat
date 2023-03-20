@@ -50,7 +50,7 @@ def handle_click(square):
 svg = chess.svg.board(board=board)
 
 root = svgwrite.container.SVG()
-root.add(svgwrite.parser.parse(svg))
+root.parse(svg)
 
 pieces = list(board.fen().split()[0])
 
