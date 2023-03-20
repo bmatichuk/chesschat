@@ -44,6 +44,9 @@ def get_square(x, y):
     rank = chess.RANK_NAMES[7 - y]
     return file + rank
 
+def handle_click(square):
+    st.write(f"Selected square: {square}")
+
 svg = chess.svg.board(board=board)
 
 root = ET.fromstring(svg)
@@ -56,14 +59,8 @@ for i, piece in enumerate(pieces):
     symbol = get_piece(piece)
     if symbol:
         rect = root.find(f".//*[@id='{square}']")
-        if rect is not None:
-            rect.set('onclick', f"handle_click('{square}')")
-            rect.set('cursor', 'pointer')
+        rect.set('onclick', f"handle_click('{square}')")
+        rect.set('cursor', 'pointer')
 
-#svg = ET.tostring(root, encoding='unicode')
-
-def handle_click(square):
-    st.write(f"Selected square: {square}")
-    
-html = f"<div style='width: 400px; height: 400px;'>{svg}</div>"
+html = f"<div style='width: 400px; height: 400px;'>{ET.tostring(root, encoding='unicode')}</div>"
 st.markdown(html, unsafe_allow_html=True)
