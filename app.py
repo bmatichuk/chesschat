@@ -65,7 +65,7 @@ st.markdown(
             background-color: transparent !important;
             border: none !important;
             color: black !important;
-            font-size: 32px !important;
+            font-size: 64px !important;
             width: 75px !important;
             height: 75px !important;
             line-height: 75px !important;
