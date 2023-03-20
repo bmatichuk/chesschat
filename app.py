@@ -62,7 +62,8 @@ for i, piece in enumerate(pieces):
     y = i // 8
     square = get_square(x, y)
     symbol = get_piece(piece)
-    html(f"<script>{" + "console.log(" + str(x) + "," + str(y) + ");" + "}</script>")
+    stringval = "console.log('" + str(x) + "," + str(y) + "');"
+    html(f"<script>{stringval}</script>")
     if symbol:
         svg = svg.replace(f'id="{square}"', f'id="{square}" onclick="handle_click(\'{square}\')"')
 
