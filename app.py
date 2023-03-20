@@ -6,7 +6,7 @@ from streamlit.components.v1 import html
 
 # Define your javascript
 my_js = """
-alert("Hola mundo");
+console.log("Hola mundo");
 """
 
 # Wrapt the javascript as html code
@@ -28,7 +28,6 @@ if move:
     except ValueError:
         st.error("Invalid move!")
     else:
-        html(my_html)
         st.success("Moved successfully!")
 
 piece_map = {
@@ -63,11 +62,11 @@ for i, piece in enumerate(pieces):
     y = i // 8
     square = get_square(x, y)
     symbol = get_piece(piece)
+    html(f"<script>{" + "console.log(" + str(x) + "," + str(y) + ");" + "}</script>")
     if symbol:
         svg = svg.replace(f'id="{square}"', f'id="{square}" onclick="handle_click(\'{square}\')"')
 
 def handle_click(square):
-    html(my_html)
     st.write(f"Selected square: {square}")
     
 htmlt = f"<div style='width: 400px; height: 400px;'>{svg}</div>"
