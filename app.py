@@ -36,10 +36,8 @@ def render_board(board):
             is_dark_square = (row + col) % 2 == 1
             square_color = "#d18b47" if is_dark_square else "#ffce9e"
 
-            button_style = f"background-color: {square_color}; border: none; color: black; font-size: 32px; width: 75px; height: 75px;"
-
             with cols_list[col]:
-                if st.button(piece_unicode, key=square_name, on_click=handle_click, args=(square_name,), style=button_style):
+                if st.button(piece_unicode, key=square_name, on_click=handle_click, args=(square_name,)):
                     pass
 
 def handle_click(square_name):
@@ -58,5 +56,28 @@ def handle_click(square_name):
 
         st.session_state.start_square = None
         st.session_state.end_square = None
+
+# Custom CSS style for the buttons
+st.markdown(
+    """
+    <style>
+        .chess-btn {
+            background-color: transparent !important;
+            border: none !important;
+            color: black !important;
+            font-size: 32px !important;
+            width: 75px !important;
+            height: 75px !important;
+            line-height: 75px !important;
+            text-align: center !important;
+            padding: 0 !important;
+        }
+        .chess-btn:active {
+            background-color: rgba(0, 0, 0, 0.1) !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 render_board(board)
