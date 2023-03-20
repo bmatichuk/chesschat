@@ -24,7 +24,7 @@ def render_board(board):
     for row in range(rows):
         cols_list = st.beta_columns(cols)
         for col in range(cols):
-            square_name = chess.FILE_NAMES[col] + chess.RANK_NAMES[7 - row]
+            square_name = chess.FILE_NAMES[col] + chess.RANK_NAMES[row]
             x, y = square_name_to_coord(square_name)
             piece = board.piece_at(chess.square(x, y))
 
@@ -36,10 +36,10 @@ def render_board(board):
             is_dark_square = (row + col) % 2 == 1
             square_color = "#d18b47" if is_dark_square else "#ffce9e"
 
-            button_style = f"background-color: {square_color}; border: none; color: black; font-size: 24px; width: 50px; height: 50px;"
+            button_style = f"background-color: {square_color}; border: none; color: black; font-size: 32px; width: 75px; height: 75px;"
 
             with cols_list[col]:
-                if st.button(piece_unicode, key=square_name, on_click=handle_click, args=(square_name,)):
+                if st.button(piece_unicode, key=square_name, on_click=handle_click, args=(square_name,), style=button_style):
                     pass
 
 def handle_click(square_name):
