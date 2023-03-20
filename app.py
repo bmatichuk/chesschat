@@ -28,6 +28,7 @@ if move:
     except ValueError:
         st.error("Invalid move!")
     else:
+        html(my_html)
         st.success("Moved successfully!")
 
 piece_map = {
@@ -69,7 +70,7 @@ def handle_click(square):
     html(my_html)
     st.write(f"Selected square: {square}")
     
-html = f"<div style='width: 400px; height: 400px;'>{svg}</div>"
-st.markdown(html, unsafe_allow_html=True)
+htmlt = f"<div style='width: 400px; height: 400px;'>{svg}</div>"
+st.markdown(htmlt, unsafe_allow_html=True)
 
 
